@@ -162,7 +162,7 @@ ggplot(data, aes(x = x, y = Density, color = Distribution)) +
   scale_color_manual(values = c("blue", "green", "red"))
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](figures/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
 set.seed(123)
@@ -192,7 +192,7 @@ maxima<-unlist(lapply(data_series,FUN=max))
 plot(maxima,main="Maxima of 200 years of data", type='l')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](figures/unnamed-chunk-3-1.png)<!-- -->
 
 Lets evaluate the empirical distribution of the maxima in order to fit
 our data to a GEV distribution
@@ -202,7 +202,7 @@ qqplot<-qqnorm(maxima, main='QQ plot of Maxima', ylab='Maxima Quantities')
 qqline(maxima, col='blue', lwd=2)
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](figures/unnamed-chunk-4-1.png)<!-- -->
 
 Lets evaluate the empirical distribution of the maxima use Maximim
 Likelihood Estimation (MLE) using the fgev function in R to determine
@@ -233,7 +233,7 @@ fit_gum<-fevd(maxima, type='Gumbel')
 plot(fit_gum,type='density', main='Empirical density evaluated against the estimated Gumbel distribution')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](figures/unnamed-chunk-6-1.png)<!-- -->
 
 **Analyse the return level:** what does it mean to say something is a
 100 year event?
@@ -268,7 +268,7 @@ The plot below gives
 plot(fit_gum, type='rl', main = 'Return level')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](figures/unnamed-chunk-7-1.png)<!-- -->
 
 **Block Maxima Method Overview**
 
@@ -323,7 +323,7 @@ points(x=rep(1:series_length, each=n)[exceed_points], y=unlist(data_series)[exce
 abline(h=threshold, col='red')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](figures/unnamed-chunk-8-1.png)<!-- -->
 
 Lets fit a Generalised Pareto distribution to the data and plot the
 density of the data to visualise the fit
@@ -335,7 +335,7 @@ shape <- gen_par_fit$estimate[2]
 plot(gen_par_fit, type='density', main = 'Peaks over Threshold vs Generalised Pareto density')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](figures/unnamed-chunk-9-1.png)<!-- -->
 
 The fitted GPD describes the distribution of values that exceed the
 threshold. A good fit indicates that the data has heavy tails, meaning
@@ -350,7 +350,7 @@ Now lets evaluate the return level for the peaks over threshold method
 plot(gen_par_fit, type ='rl', main='Return level for Peak over Threshold')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](figures/unnamed-chunk-10-1.png)<!-- -->
 
 **Optimisation for Model**
 
@@ -367,7 +367,7 @@ number of exceedances with a stable GPD fit.
 extRemes::mrlplot(unlist(data_series), threshold.range = seq(5, 10, by = 0.5))
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](figures/unnamed-chunk-11-1.png)<!-- -->
 
 Use a goodness-of-fit test to assess wether a GDP is appropriate for our
 data series
@@ -452,4 +452,4 @@ point_fit<-fevd(unlist(data_series), threshold = threshold, type ='PP')
 plot(point_fit, type = 'density', main = 'Empiracle Point Process Representation')
 ```
 
-![](Extreme-Value-Analysis_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](figures/unnamed-chunk-14-1.png)<!-- -->
